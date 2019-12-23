@@ -11,6 +11,8 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+//Define routes
+
 app.listen(port, () => {
     console.log(`🌎 ==> API server now on port ${port}!`);
   });
