@@ -1,12 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Library from "./pages/library";
+import Shelf from "./pages/shelf";
 import './App.css';
+
+//Main app will handle switching between pages, and that's about it.
 
 function App() {
   return (
-    <div>
-      HI!
-    </div>
+    <Router>
+      <div>
+        <Switch>
+            <Route exact path='/' component={Library}/>
+            <Route exact path='/books' component={Shelf}/>
+            {/* <Route component={NoMatch}/> */}
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
