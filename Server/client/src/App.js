@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Library from "./pages/library";
 import Shelf from "./pages/shelf";
 import NoMatch from "./pages/noMatch";
@@ -13,7 +14,7 @@ function App() {
       <div>
         <Switch>
             <Route exact path='/' component={Library}/>
-            <Route exact path='/books' component={Shelf}/>
+            <Route exact path='/shelf' component={Shelf}/>
             <Route component={NoMatch}/>
         </Switch>
       </div>
