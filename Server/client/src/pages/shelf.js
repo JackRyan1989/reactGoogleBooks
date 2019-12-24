@@ -9,18 +9,28 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
+//Custom Components:
+import BookDisp from '../components/bookDisp';
 
 //Shelf will be nearly identical to library in structure, except that it 
 //will pull from a different route. It will query the db rather than google books.
 
 class Shelf extends Component {
     state = {
-        books: [],
-        title: '',
-        authors: [],
-        description: '',
-        link: '',
-        image: ''
+        books: []
+    }
+
+    componentDidMount() {
+        this.loadBooks();
+    }
+
+    loadBooks = () => {
+        API.getBooks()
+        .then(res =>
+            this.setState({books: res.data})
+            )
+            .catch(err => console.log(err));
+
     }
 
     render() {
@@ -40,6 +50,18 @@ class Shelf extends Component {
                     </Row>
                 </Jumbotron>
                 {/* Display books below */}
+                {this.state.books.map(book => (
+                    <BookDisp 
+                        title= {book.title}
+                        authors= {book.authors}
+                        description= {book.description}
+                        link= {book.link}
+                        image= {book.image}
+                        date= {book.date}
+                        key= {book.id}
+                    />
+            )
+                )};
             </Container>
         )
     }

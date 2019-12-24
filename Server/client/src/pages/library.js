@@ -16,12 +16,7 @@ import SearchButton from '../components/searchButton';
 
 class Library extends Component {
     state = {
-        books: [],
-        title: '',
-        authors: [],
-        description: '',
-        link: '',
-        image: ''
+        books: []
     }
 
     render() {

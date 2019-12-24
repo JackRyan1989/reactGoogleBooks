@@ -13,11 +13,11 @@ const bookSeed = [
         image: "http://books.google.com/books/content?id=sazytgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
         link: "http://books.google.com/books?id=sazytgAACAAJ&dq=title:The+Hunger+Games&hl=&source=gbs_api"
     }
-]
+];
 
 db.Book
     .remove({})
-    .then(()=> db.Book.collection.insert(bookSeed))
+    .then(()=> db.Book.collection.insertMany(bookSeed))
     .then(data => {
         console.log(data.result.n + " records inserted.");
         process.exit(0);

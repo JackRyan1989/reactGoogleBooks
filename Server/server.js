@@ -1,5 +1,6 @@
 const express = require('express');
-const path = require('path');
+const mongoose = require('mongoose');
+const routes = require('./routes');
 const port = process.env.PORT || 3001;
 const app = express();
 
@@ -12,6 +13,10 @@ if (process.env.NODE_ENV === "production") {
 }
 
 //Define routes
+app.use(routes);
+
+//Start up the mongoose server:
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/googlebooks");
 
 app.listen(port, () => {
     console.log(`🌎 ==> API server now on port ${port}!`);

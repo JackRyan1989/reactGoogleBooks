@@ -1,14 +1,18 @@
 const router = require('express').Router();
 const bookController = require('../../controllers/bookController.js');
 
-//Search for a book from the google books api:
-router.route('/')
-    .get(bookController.findOne);
 
-//Get all books from the db:
+//Get all books from the db, and also save books to db.
+// Matches with "/api/shelf"
+router.route("/")
+    .get(bookController.findAll)
+    .post(bookController.create);
 
+// Matches with "/api/shelf/:id"
+router
+    .route("/:id")
+    .get(bookController.findById)
+    .put(bookController.update)
+    .delete(bookController.remove);
 
-
-//Save a specific book to the db:
-router.router('/:id')
-    .get()
+module.exports = router;
