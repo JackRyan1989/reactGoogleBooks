@@ -10,6 +10,9 @@ const key = dotenv.key;
 //I think I need to add a route to interact with the GoogleAPI.
 //But first lets see if we can't grab the book existing in the DB.
 export default {
+    findBooks: function (query) {
+        return axios.get(BASEURL + query + key);
+    },
     getBooks: function () {
         return axios.get('/api/shelf');
     },

@@ -16,7 +16,26 @@ import SearchButton from '../components/searchButton';
 
 class Library extends Component {
     state = {
-        books: []
+        books: [],
+        bookSearch: ""
+    }
+
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        });
+    };
+
+    handleSubmit = event => {
+        event.preventDefault();
+        API.findBooks(this.state.bookSearch)
+            .then(res => 
+                console.log(res.data))
+            // .then(res => this.setState({
+            //     books: res.data
+            // }))
+            .catch(err => console.log(err));
     }
 
     render() {
@@ -36,16 +55,23 @@ class Library extends Component {
                     </Row>
                 </Jumbotron>
                 <Row className='mx-auto'>
-                    <Col lg={6} sm={12}>  
+                    <Col lg={6} sm={12}>
                         <Card className='text-center'>
-                                <h3>Recently searched for titles</h3>
+                            <h3>Find a book</h3>
+                            <SearchBar
+                                name="bookSearch"
+                                value={this.state.bookSearch}
+                                onChange={this.handleInputChange}
+                            />
+                            <SearchButton
+                                onClick={this.handleSubmit}
+                            />
+                            {/* Need two methods: handleInput and handleSubmit */}
                         </Card>
                     </Col>
                     <Col lg={6} sm={12}>
                         <Card className='text-center'>
-                                <h3>Find a book</h3>
-                                <SearchBar />
-                                <SearchButton />
+                            <h3>Your book, my liege.</h3>
                         </Card>
                     </Col>
                 </Row>

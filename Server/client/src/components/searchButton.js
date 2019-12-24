@@ -4,10 +4,10 @@ import Button from 'react-bootstrap/Button';
 
 
 //We will pass in an onClick function through the props in a second here:
-function SearchButton() {
+function SearchButton(props) {
     return (
         <div>
-            <Button className="mb-3" variant="success">GO!</Button>
+            <Button onClick={props.onClick} className="mb-3" variant="success">GO!</Button>
         </div>
     )
 }

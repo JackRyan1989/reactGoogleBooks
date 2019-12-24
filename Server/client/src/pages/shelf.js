@@ -52,13 +52,13 @@ class Shelf extends Component {
                 {/* Display books below */}
                 {this.state.books.map(book => (
                     <BookDisp 
+                        key= {book.id}
                         title= {book.title}
                         authors= {book.authors}
                         description= {book.description}
                         link= {book.link}
                         image= {book.image}
                         date= {book.date}
-                        key= {book.id}
                     />
             )
                 )};
