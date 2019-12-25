@@ -12,6 +12,7 @@ import Card from 'react-bootstrap/Card';
 //Custom components:
 import SearchBar from '../components/searchBar';
 import SearchButton from '../components/searchButton';
+import BookDisp from '../components/bookDisp';
 
 
 class Library extends Component {
@@ -30,11 +31,9 @@ class Library extends Component {
     handleSubmit = event => {
         event.preventDefault();
         API.findBooks(this.state.bookSearch)
-            .then(res => 
-                console.log(res.data))
-            // .then(res => this.setState({
-            //     books: res.data
-            // }))
+            .then(res => this.setState({
+                books: res.data.items
+            }))
             .catch(err => console.log(err));
     }
 
@@ -71,14 +70,24 @@ class Library extends Component {
                     </Col>
                     <Col lg={6} sm={12}>
                         <Card className='text-center'>
-                            <h3>Your book, my liege.</h3>
+                            <h3>Your books, my liege.</h3>
                         </Card>
+                        {/* Display books below */}
+                        {this.state.books.map(book => (
+                            <BookDisp
+                                key={book.id}
+                                title={book.title}
+                                authors={book.volumeInfo.authors[0]}
+                                description={book.volumeInfo.description}
+                                link={book.volumeInfo.infoLink}
+                                image={book.volumeInfo.imageLinks.thumbnail}
+                                date={book.date}
+                            />
+                        )
+                        )}
                     </Col>
                 </Row>
             </Container>
-
-
-
         )
     }
 }
