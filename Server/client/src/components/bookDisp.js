@@ -7,6 +7,7 @@ import Image from 'react-bootstrap/Image';
 import './bookDisp.css';
 
 
+
 function BookDisp(props) {
     return (
         <div className="mx-auto">
@@ -20,6 +21,7 @@ function BookDisp(props) {
                     {props.description}
                 </Card.Text>
                 <Button variant='success'><a href={props.link} rel="noopener noreferrer" target="_blank">View in Library</a></Button>
+                <Button {...props} className='my-3'>Save to Shelf</Button>
             </Card>
         </div>
     )

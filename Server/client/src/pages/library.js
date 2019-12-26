@@ -13,7 +13,7 @@ import Card from 'react-bootstrap/Card';
 import SearchBar from '../components/searchBar';
 import SearchButton from '../components/searchButton';
 import BookDisp from '../components/bookDisp';
-import SaveBook from '../components/saveToShelf';
+
 
 class Library extends Component {
     state = {
@@ -39,18 +39,10 @@ class Library extends Component {
 
     saveBook = (event) => {
         event.preventDefault();
-        console.log('Clicked!');
-        let bookData = {
-            id: event.target.id,
-            title: event.target.title,
-            authors: event.target.authors,
-            description: event.target.description,
-            link: event.target.link,
-            image: event.target.image
-        };
-        API.saveBook(bookData)
+        const { title, authors, description, link, image } = event.target;
+        API.saveBook({title, authors, description, link, image})
             .then(res => console.log(res))
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
     }
 
     render() {
@@ -93,22 +85,14 @@ class Library extends Component {
                                 <BookDisp
                                     key={book.id}
                                     id={book.id}
-                                    title={book.title}
+                                    title={book.volumeInfo.title}
                                     authors={book.volumeInfo.authors[0]}
                                     description={book.volumeInfo.description}
                                     link={book.volumeInfo.infoLink}
                                     image={book.volumeInfo.imageLinks.thumbnail}
                                     date={book.date}
+                                    onClick={this.saveBook}
                                 />
-                                <SaveBook
-                                    id={book.id}
-                                    title={book.title}
-                                    authors={book.volumeInfo.authors[0]}
-                                    description={book.volumeInfo.description}
-                                    link={book.volumeInfo.infoLink}
-                                    image={book.volumeInfo.imageLinks.thumbnail}
-                                    date={book.date}
-                                    onClick={this.saveBook} />
                             </div>
                         )
                         )}
