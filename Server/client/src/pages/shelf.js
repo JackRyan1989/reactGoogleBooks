@@ -7,10 +7,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
 //Custom Components:
-import BookDisp from '../components/bookDisp';
+import ShelfDisp from '../components/shelfDisp';
 
 //Shelf will be nearly identical to library in structure, except that it 
 //will pull from a different route. It will query the db rather than google books.
@@ -33,6 +31,13 @@ class Shelf extends Component {
 
     }
 
+    deleteBook = (id) => {
+        API.deleteBook(id)
+        .then(res => this.loadBooks())
+        .catch(err => console.log(err))
+
+    }
+
     render() {
         return (
             <Container className='p-0' fluid='true'>
@@ -51,7 +56,7 @@ class Shelf extends Component {
                 </Jumbotron>
                 {/* Display books below */}
                 {this.state.books.map(book => (
-                    <BookDisp 
+                    <ShelfDisp 
                         key= {book.id}
                         title= {book.title}
                         authors= {book.authors}
@@ -59,6 +64,7 @@ class Shelf extends Component {
                         link= {book.link}
                         image= {book.image}
                         date= {book.date}
+                        onClick= {() => this.deleteBook(book.id)}
                     />
             )
                 )};

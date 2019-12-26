@@ -12,7 +12,7 @@ import Card from 'react-bootstrap/Card';
 //Custom components:
 import SearchBar from '../components/searchBar';
 import SearchButton from '../components/searchButton';
-import BookDisp from '../components/bookDisp';
+import LibraryDisp from '../components/libraryDisp';
 
 
 class Library extends Component {
@@ -82,7 +82,7 @@ class Library extends Component {
                         {/* Display books below */}
                         {this.state.books.map(book => (
                             <div>
-                                <BookDisp
+                                <LibraryDisp
                                     key={book.id}
                                     id={book.id}
                                     title={book.volumeInfo.title}
