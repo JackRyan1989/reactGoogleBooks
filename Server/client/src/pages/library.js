@@ -13,7 +13,7 @@ import Card from 'react-bootstrap/Card';
 import SearchBar from '../components/searchBar';
 import SearchButton from '../components/searchButton';
 import BookDisp from '../components/bookDisp';
-
+import SaveBook from '../components/saveToShelf';
 
 class Library extends Component {
     state = {
@@ -35,6 +35,22 @@ class Library extends Component {
                 books: res.data.items
             }))
             .catch(err => console.log(err));
+    }
+
+    saveBook = (event) => {
+        event.preventDefault();
+        console.log('Clicked!');
+        let bookData = {
+            id: event.target.id,
+            title: event.target.title,
+            authors: event.target.authors,
+            description: event.target.description,
+            link: event.target.link,
+            image: event.target.image
+        };
+        API.saveBook(bookData)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
     }
 
     render() {
@@ -65,7 +81,6 @@ class Library extends Component {
                             <SearchButton
                                 onClick={this.handleSubmit}
                             />
-                            {/* Need two methods: handleInput and handleSubmit */}
                         </Card>
                     </Col>
                     <Col lg={6} sm={12}>
@@ -74,15 +89,27 @@ class Library extends Component {
                         </Card>
                         {/* Display books below */}
                         {this.state.books.map(book => (
-                            <BookDisp
-                                key={book.id}
-                                title={book.title}
-                                authors={book.volumeInfo.authors[0]}
-                                description={book.volumeInfo.description}
-                                link={book.volumeInfo.infoLink}
-                                image={book.volumeInfo.imageLinks.thumbnail}
-                                date={book.date}
-                            />
+                            <div>
+                                <BookDisp
+                                    key={book.id}
+                                    id={book.id}
+                                    title={book.title}
+                                    authors={book.volumeInfo.authors[0]}
+                                    description={book.volumeInfo.description}
+                                    link={book.volumeInfo.infoLink}
+                                    image={book.volumeInfo.imageLinks.thumbnail}
+                                    date={book.date}
+                                />
+                                <SaveBook
+                                    id={book.id}
+                                    title={book.title}
+                                    authors={book.volumeInfo.authors[0]}
+                                    description={book.volumeInfo.description}
+                                    link={book.volumeInfo.infoLink}
+                                    image={book.volumeInfo.imageLinks.thumbnail}
+                                    date={book.date}
+                                    onClick={this.saveBook} />
+                            </div>
                         )
                         )}
                     </Col>

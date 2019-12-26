@@ -6,17 +6,20 @@ import Image from 'react-bootstrap/Image';
 //Custom CSS to resize the top Image:
 import './bookDisp.css';
 
+
 function BookDisp(props) {
     return (
         <div className="mx-auto">
-            <Card className='p-2 m-2 border-0 card bookCard' style={{ width: '18rem' }}>
+            <Card id={props.id} className='p-2 m-2 border-0 card bookCard' style={{ width: '18rem' }}>
                 <Image className="card-img-top" variant='top' src={props.image} />
                 <Card.Title>{props.title}</Card.Title>
                 <Card.Text>
-                    <p>{props.authors}</p>
-                    <p>{props.description}</p>
-                    <Button variant='success'><a href={props.link} rel="noopener noreferrer" target="_blank">Read Now!</a></Button>
+                    {props.authors}
                 </Card.Text>
+                <Card.Text>
+                    {props.description}
+                </Card.Text>
+                <Button variant='success'><a href={props.link} rel="noopener noreferrer" target="_blank">View in Library</a></Button>
             </Card>
         </div>
     )
