@@ -9,6 +9,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Row from 'react-bootstrap/Row';
 //Custom Components:
 import ShelfDisp from '../components/shelfDisp';
+import RemoveBook from '../components/removeBook';
 
 //Shelf will be nearly identical to library in structure, except that it 
 //will pull from a different route. It will query the db rather than google books.
@@ -56,16 +57,19 @@ class Shelf extends Component {
                 </Jumbotron>
                 {/* Display books below */}
                 {this.state.books.map(book => (
+                    <div>
                     <ShelfDisp 
-                        key= {book.id}
+                        key= {book._id}
+                        id = {book._id}
                         title= {book.title}
                         authors= {book.authors}
                         description= {book.description}
                         link= {book.link}
                         image= {book.image}
                         date= {book.date}
-                        onClick= {() => this.deleteBook(book.id)}
                     />
+                    <RemoveBook onClick={() => this.deleteBook(book._id)} className="delBtn mb-3" variant="danger">Remove Book</RemoveBook>
+                    </div>
             )
                 )};
             </Container>

@@ -37,11 +37,17 @@ class Library extends Component {
             .catch(err => console.log(err));
     }
 
+    //Later: see if you can't get this to work using State.
     saveBook = (event) => {
         event.preventDefault();
-        const { title, authors, description, link, image } = event.target;
-        API.saveBook({title, authors, description, link, image})
-            .then(res => console.log(res))
+        const authors = event.target.getAttribute('authors');   
+        const title = event.target.getAttribute('title');
+        const description = event.target.getAttribute('description');
+        const link = event.target.getAttribute('link');
+        const image = event.target.getAttribute('image');
+        const id = event.target.getAttribute('id')
+        API.saveBook({title, authors, description, link, image, id})
+            .then(res => console.log(res.data))
             .catch(err => console.log(err));
     }
 

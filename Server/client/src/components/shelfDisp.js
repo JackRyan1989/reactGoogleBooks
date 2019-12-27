@@ -6,9 +6,6 @@ import Image from 'react-bootstrap/Image';
 //Custom CSS to resize the top Image:
 import './bookDisp.css';
 //Custom components:
-import RemoveBook from '../components/removeBook';
-
-
 
 function ShelfDisp(props) {
     return (
@@ -23,7 +20,6 @@ function ShelfDisp(props) {
                     {props.description}
                 </Card.Text>
                 <Button variant='success'><a href={props.link} rel="noopener noreferrer" target="_blank">View in Library</a></Button>
-                <RemoveBook {...props} className="delBtn mb-3" variant="danger">Remove Book</RemoveBook>
             </Card>
         </div>
     )
