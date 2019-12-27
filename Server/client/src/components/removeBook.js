@@ -8,9 +8,11 @@ import './bookDisp.css';
 // That way we don't have to define them all individually
 function RemoveBook(props) {
   return (
-    <Button className="mx-3 my-2 removeBtn" variant='danger' {...props} role="button" tabIndex="0">
-      Remove Book
+    <div>
+      <Button className="mx-3 my-2 removeBtn" variant='danger' {...props} role="button" tabIndex="0">
+        Remove Book
     </Button>
+    </div >
   );
 }
 

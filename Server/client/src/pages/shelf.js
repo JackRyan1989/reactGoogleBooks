@@ -25,16 +25,16 @@ class Shelf extends Component {
 
     loadBooks = () => {
         API.getBooks()
-        .then(res =>
-            this.setState({books: res.data})
+            .then(res =>
+                this.setState({ books: res.data })
             )
             .catch(err => console.log(err));
     }
 
     deleteBook = (id) => {
         API.deleteBook(id)
-        .then(res => this.loadBooks())
-        .catch(err => console.log(err))
+            .then(res => this.loadBooks())
+            .catch(err => console.log(err))
     }
 
     render() {
@@ -56,23 +56,24 @@ class Shelf extends Component {
                 {/* Display books below */}
                 {this.state.books.map(book => (
                     <div className="float-left">
-                    <ShelfDisp 
-                        key= {book._id}
-                        id = {book._id}
-                        title= {book.title}
-                        authors= {book.authors}
-                        description= {book.description}
-                        link= {book.link}
-                        image= {book.image}
-                        date= {book.date}
-                    />
-                    <RemoveBook onClick={() => this.deleteBook(book._id)} variant="danger">Remove Book</RemoveBook>
+                        <ShelfDisp
+                            key={book._id}
+                            id={book._id}
+                            title={book.title}
+                            authors={book.authors}
+                            description={book.description}
+                            link={book.link}
+                            image={book.image}
+                            date={book.date}
+                        />
+                        <RemoveBook onClick={() => this.deleteBook(book._id)} variant="danger">Remove Book</RemoveBook>
                     </div>
-            )
+                )
                 )}
             </Container>
         )
     }
+
 }
 
 export default Shelf;
