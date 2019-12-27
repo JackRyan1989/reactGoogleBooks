@@ -1,10 +1,28 @@
 .card {
     overflow: auto;
+    background-color: rgba(227, 231, 233, 0.4);
 }
 
 .card-img-top {
-    height: 15vw;
-    object-fit: cover;
+    height: 20vw;
+    object-fit: contain;
     transition: box-shadow 0.3s;
     will-change: transform;
+}
+
+.jumbo {
+    background-image: url('../assets/bg.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: -0px;
+    font-weight: bold;
+    color: black;
+}
+
+.saveBtn:hover {
+    text-decoration: underline;
+}
+
+.removeBtn:hover {
+    text-decoration: underline;
 }

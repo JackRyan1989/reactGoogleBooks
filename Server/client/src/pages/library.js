@@ -40,13 +40,13 @@ class Library extends Component {
     //Later: see if you can't get this to work using State.
     saveBook = (event) => {
         event.preventDefault();
-        const authors = event.target.getAttribute('authors');   
+        const authors = event.target.getAttribute('authors');
         const title = event.target.getAttribute('title');
         const description = event.target.getAttribute('description');
         const link = event.target.getAttribute('link');
         const image = event.target.getAttribute('image');
         const id = event.target.getAttribute('id')
-        API.saveBook({title, authors, description, link, image, id})
+        API.saveBook({ title, authors, description, link, image, id })
             .then(res => console.log(res.data))
             .catch(err => console.log(err));
     }
@@ -55,16 +55,16 @@ class Library extends Component {
         return (
             <Container className='p-0' fluid='true'>
                 {/* Render Navbar component */}
-                <Navbar className="border-bottom" bg="transparent" expand="lg">
-                    <Navbar.Brand id='navBarBrand'>Google Library</Navbar.Brand>
+                <Navbar className="border-bottom fixed-top" bg="dark" expand="lg">
+                    <Navbar.Brand id='navBarBrand' className="text-white">Google Library</Navbar.Brand>
                     <Nav className="ml-auto">
-                        <Link className="nav-link" to="/shelf">Your Shelf</Link>
+                        <Link className="nav-link text-white" to="/shelf">Your Shelf</Link>
                     </Nav>
                 </Navbar>
                 {/* Render main page content */}
-                <Jumbotron>
+                <Jumbotron className="my-4 jumbo">
                     <Row>
-                        <h1>The Library of Googlexandria</h1>
+                        <h1 className="mt-4">The Library of Googlexandria</h1>
                     </Row>
                 </Jumbotron>
                 <Row className='mx-auto'>
@@ -86,22 +86,26 @@ class Library extends Component {
                             <h3>Your books, my liege.</h3>
                         </Card>
                         {/* Display books below */}
-                        {this.state.books.map(book => (
-                            <div>
-                                <LibraryDisp
-                                    key={book.id}
-                                    id={book.id}
-                                    title={book.volumeInfo.title}
-                                    authors={book.volumeInfo.authors[0]}
-                                    description={book.volumeInfo.description}
-                                    link={book.volumeInfo.infoLink}
-                                    image={book.volumeInfo.imageLinks.thumbnail}
-                                    date={book.date}
-                                    onClick={this.saveBook}
-                                />
+                        {(!this.state.books) ?
+                            <div className="my-3">
+                                <h2>Book not found.</h2>
                             </div>
-                        )
-                        )}
+                            : this.state.books.map(book => (
+                                <div className="float-left">
+                                    <LibraryDisp
+                                        key={book.id}
+                                        id={book.id}
+                                        title={book.volumeInfo.title}
+                                        authors={(!book.volumeInfo.authors) ? "" : book.volumeInfo.authors.join(", ")}
+                                        description={(!book.volumeInfo.description) ? "No description available" : book.volumeInfo.description}
+                                        link={(!book.volumeInfo.infoLink) ? "No link available" : book.volumeInfo.infoLink}
+                                        image={(!book.volumeInfo.imageLinks) ? "https://www.motorolasolutions.com/content/dam/msi/images/products/accessories/image_not_available_lg.jpg" : book.volumeInfo.imageLinks.thumbnail}
+                                        date={book.date}
+                                        onClick={this.saveBook}
+                                    />
+                                </div>
+                            )
+                            )}
                     </Col>
                 </Row>
             </Container>

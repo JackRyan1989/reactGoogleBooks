@@ -29,35 +29,33 @@ class Shelf extends Component {
             this.setState({books: res.data})
             )
             .catch(err => console.log(err));
-
     }
 
     deleteBook = (id) => {
         API.deleteBook(id)
         .then(res => this.loadBooks())
         .catch(err => console.log(err))
-
     }
 
     render() {
         return (
             <Container className='p-0' fluid='true'>
                 {/* Render Navbar component */}
-                <Navbar className="border-bottom" bg="transparent" expand="lg">
-                    <Navbar.Brand id='navBarBrand'>Google Library</Navbar.Brand>
+                <Navbar className="border-bottom fixed-top" bg="dark" expand="lg">
+                    <Navbar.Brand id='navBarBrand' className="text-white">Google Library</Navbar.Brand>
                     <Nav className="ml-auto">
-                        <Link className="nav-link" to="/">Library</Link>
+                        <Link className="nav-link text-white" to="/">Library</Link>
                     </Nav>
                 </Navbar>
                 {/* Render main page content */}
-                <Jumbotron>
+                <Jumbotron className="my-4 jumbo">
                     <Row>
-                        <h1>Your phat stack awaits...</h1>
+                        <h1 className="mt-4">Your phat stack awaits...</h1>
                     </Row>
                 </Jumbotron>
                 {/* Display books below */}
                 {this.state.books.map(book => (
-                    <div>
+                    <div className="float-left">
                     <ShelfDisp 
                         key= {book._id}
                         id = {book._id}
@@ -68,10 +66,10 @@ class Shelf extends Component {
                         image= {book.image}
                         date= {book.date}
                     />
-                    <RemoveBook onClick={() => this.deleteBook(book._id)} className="delBtn mb-3" variant="danger">Remove Book</RemoveBook>
+                    <RemoveBook onClick={() => this.deleteBook(book._id)} variant="danger">Remove Book</RemoveBook>
                     </div>
             )
-                )};
+                )}
             </Container>
         )
     }

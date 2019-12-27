@@ -11,8 +11,6 @@ router.route("/")
 // Matches with "/api/shelf/:id"
 router
     .route("/:id")
-    .get(bookController.findById)
-    .put(bookController.update)
     .delete(bookController.remove);
 
 module.exports = router;

@@ -3,6 +3,7 @@ const db = require('../models');
 //What do we want to do?
 //1. We want to add books to the db. This is a 'create' command.
 //2. We want to list all items in the db, sorted alphabetically by author. This is a 'findAll' command.
+//3. We may want to build this out a bit, include tags and ratings maybe?
 
 module.exports = {
     findAll: function (req, res) {
@@ -12,21 +13,9 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
-    findById: function (req, res) {
-        db.Book
-            .findById(req.params.id)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
-    },
     create: function (req, res) {
         db.Book
             .create(req.body)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
-    },
-    update: function (req, res) {
-        db.Book
-            .findOneAndUpdate({ _id: req.params.id }, req.body)
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
