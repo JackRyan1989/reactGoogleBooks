@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import API from '../utils/api';
 import { Link } from "react-router-dom";
-import io from 'socket.io-client';
+//import io from 'socket.io-client';
 //React-Bootstrap components:
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
@@ -15,7 +15,7 @@ import SearchBar from '../components/searchBar';
 import SearchButton from '../components/searchButton';
 import LibraryDisp from '../components/libraryDisp';
 
-let socket;
+//let socket;
 
 class Library extends Component {
     state = {
@@ -23,12 +23,9 @@ class Library extends Component {
         bookSearch: ""
     }
 
-    componentDidMount = () => {
-        socket = io();
-        socket.on('connect', (data) => {
-            socket.emit('join', 'Hello World from client');
-        })
-    }
+    // componentDidMount = () => {
+    //     socket = io('https://react-google-books-app.herokuapp.com/');
+    // };
 
     handleInputChange = event => {
         const { name, value } = event.target;
@@ -47,9 +44,9 @@ class Library extends Component {
     }
 
     //Function for notifying user of saved book:
-    sendBook = (bookInfo) => {
-            socket.emit('saveBook', bookInfo);
-        }
+    // sendBook = (bookInfo) => {
+    //         socket.emit('saveBook', bookInfo);
+    //     }
 
     //Later: see if you can't get this to work using State.
     saveBook = (event) => {
@@ -61,13 +58,13 @@ class Library extends Component {
         const image = event.target.getAttribute('image');
         const id = event.target.getAttribute('id')
         API.saveBook({ title, authors, description, link, image, id })
-            .then(res => {
-                let bookInfo = {title: res.data.title, authors: res.data.authors.join("")}
-                this.sendBook(bookInfo);
-                socket.on('bookSaved', (data) => {
-                    alert(`Saved ${data.title} by ${data.authors} to library!`);
-                })
-        })
+            .then(res => console.log(res.data)
+                // let bookInfo = {title: res.data.title, authors: res.data.authors.join("")}
+                // this.sendBook(bookInfo);
+                // socket.on('bookSaved', (data) => {
+                //     alert(`Saved ${data.title} by ${data.authors} to library!`);
+                // })
+        )
             .catch(err => console.log(err));
     }
 
