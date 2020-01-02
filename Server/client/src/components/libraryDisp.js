@@ -8,7 +8,7 @@ import './bookDisp.css';
 
 
 function LibraryDisp(props) {
-
+    
     return (
         <div className="mx-auto">
             <Card id={props.id} className='p-2 m-2 border-0 card bookCard' style={{ width: '10rem' }}>
