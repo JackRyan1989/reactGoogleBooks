@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import API from '../utils/api';
 import { Link } from "react-router-dom";
+import io from 'socket.io-client';
 //React-Bootstrap components:
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
@@ -14,11 +15,19 @@ import SearchBar from '../components/searchBar';
 import SearchButton from '../components/searchButton';
 import LibraryDisp from '../components/libraryDisp';
 
+let socket;
 
 class Library extends Component {
     state = {
         books: [],
         bookSearch: ""
+    }
+
+    componentDidMount = () => {
+        socket = io();
+        socket.on('connect', (data) => {
+            socket.emit('join', 'Hello World from client');
+        })
     }
 
     handleInputChange = event => {
@@ -37,6 +46,11 @@ class Library extends Component {
             .catch(err => console.log(err));
     }
 
+    //Function for notifying user of saved book:
+    sendBook = (bookInfo) => {
+            socket.emit('saveBook', bookInfo);
+        }
+
     //Later: see if you can't get this to work using State.
     saveBook = (event) => {
         event.preventDefault();
@@ -47,7 +61,13 @@ class Library extends Component {
         const image = event.target.getAttribute('image');
         const id = event.target.getAttribute('id')
         API.saveBook({ title, authors, description, link, image, id })
-            .then(res => console.log(res.data))
+            .then(res => {
+                let bookInfo = {title: res.data.title, authors: res.data.authors.join("")}
+                this.sendBook(bookInfo);
+                socket.on('bookSaved', (data) => {
+                    alert(`Saved ${data.title} by ${data.authors} to library!`);
+                })
+        })
             .catch(err => console.log(err));
     }
 
